@@ -7,6 +7,8 @@ variable "web_server_location" {}
 variable "web_server_rg" {}
 variable "resource_prefix" {}
 variable "web_server_address_space" {}
+variable "web_server_address_prefix" {}
+
 
 
 
@@ -32,3 +34,11 @@ resource "azurerm_virtual_network" "web_server_vnet" {
      address_space=[var.web_server_address_space]
   
 }
+
+resource "azurerm_subnet" "web_server_subnet" {
+  name="${var.resource_prefix}-subvnet"
+  resource_group_name=azurerm_resource_group.web_server_rg.name
+  virtual_network_name=azurerm_virtual_network.web_server_vnet.name
+  address_prefix=var.web_server_address_prefix  
+}
+
