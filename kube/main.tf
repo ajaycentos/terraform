@@ -56,6 +56,12 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     client_id     = var.client_id
     client_secret = var.client_secret
   }
-
  
+}
+output "kube_config" {
+  value = "${azurerm_kubernetes_cluster.k8s.kube_config_raw}"
+}
+
+output "host" {
+  value = "${azurerm_kubernetes_cluster.k8s.kube_config.0.host}"
 }
